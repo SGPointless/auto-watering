@@ -32,11 +32,9 @@ while True:
     time.sleep(1)
     Led(0)
     print("LED off")
-    time.sleep(0)
+    time.sleep(1)
 
     analysis()
     counter_function()
     print(count)
     time.sleep(1)
-    analysis()
-    analysis()
