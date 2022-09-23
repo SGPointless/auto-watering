@@ -2,12 +2,12 @@
 import logging
 import time
 from datetime import datetime
-import network
+# import network
 
 import machine
 from machine import Pin
 
-currentTime= datetime.datetime.now()
+currentTime = datetime.now()
 logging.basicConfig(filename='test.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 Led = Pin(25, Pin.OUT)
 Level0 = Pin(12, Pin.IN)
@@ -39,7 +39,7 @@ def analysis():
 
 
 while True:
-    #Trying out the LED onboard
+    # Trying out the LED onboard
     Led(1)
     print("LED on")
     time.sleep(1)
@@ -47,11 +47,11 @@ while True:
     print("LED off")
     time.sleep(0)
 
-    #Doing the analysis
+    # Doing the analysis
     analysis()
     counter_function()
     print(count)
     time.sleep(1)
     analysis()
     analysis()
-    machine.deepsleep([300])
+    machine.deepsleep(300)
