@@ -68,7 +68,8 @@ def wlan_connect():
 
 
 def open_socket(ip):
-    address = socket.getaddrinfo(ip, 80)[0][-1]
+    address = (ip, 80)
+    #address = socket.getaddrinfo('0,0,0,0', 80)[0][-1]
     connection = socket.socket()
     connection.bind(address)
     connection.listen(1)
@@ -95,39 +96,51 @@ def serve(connection):
 def webpage(status):
     # Template HTML
     html = f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <title>Pico W Weather Station</title>
-            <meta http-equiv="refresh" content="10">
-            <meta http-equiv="refresh" content="10">
-            </head>
-            <body>
-            
-            <table>
-                <tr>
-                    <th>Pflanze:</th>
-                    <th>Wasser:</th>
-                    <th>Sonne:</th>
-                <tr>
-                <tr>
-                    <th>Bananenstaude:</th>
-                    <th>Low:</th>
-                    <th>2:</th>
-                <tr>
-            </body>
-            </html>
-            """
-    print("Webpage done")
+<!DOCTYPE html>
+<html>
+<head>
+<title>Overview automated watering system</title>
+<meta http-equiv="refresh" content="10">
+<meta http-equiv="refresh" content="10">
+</head>
+<body>
+<table>
+    <tr>
+        <th>Pflanze:</th>
+        <th>Wasser:</th>
+        <th>Sonne:</th>
+    <tr>
+    <tr>
+        <td>Bananenstaude</td>
+        <td>Low</td>
+        <td>2</td>
+    <tr>
+    <tr>
+        <td>Geigenbaum</td>
+        <td>Low</td>
+        <td>2</td>
+    <tr>
+    <tr>
+        <td>Efeutute</td>
+        <td>Low</td>
+        <td>2</td>
+    <tr>
+    <tr>
+        <td>Pfannkuchenpflanze</td>
+        <td>Low</td>
+        <td>2</td>
+    <tr>
+    <tr>
+        <td>Blume</td>
+        <td>Low</td>
+        <td>2</td>
+    <tr>
+</table>
+</body>
+</html>
+"""
+    print("Webpage configurated")
     return str(html)
-
-
-
-
-
-
-
-
 
 
 def counter_function():
