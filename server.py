@@ -28,14 +28,14 @@ Level3 = Pin(15, Pin.IN)
 
 # Logging for better debugging
 currentTime = time.gmtime()
-print(currentTime)
-#logging.basicConfig(filename='test.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+# print(currentTime)
+# logging.basicConfig(filename='test.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 numSensor = 4
 count = 0
 WaterLevel = [Level0, Level1, Level2, Level3]
-print(WaterLevel)
-#logging.debug(WaterLevel)
+# print(WaterLevel)
+# logging.debug(WaterLevel)
 
 
 # Funktion: WLAN-Verbindung
@@ -70,28 +70,28 @@ def wlan_connect():
 def open_socket(ip):
     address = (ip, 80)
     #address = socket.getaddrinfo('0,0,0,0', 80)[0][-1]
-    connection = socket.socket()
-    connection.bind(address)
-    connection.listen(1)
+    s = socket.socket()
+    s.bind(address)
+    s.listen(1)
     print("Listening on ", address)
-    return connection
 
-
-def serve(connection):
     # Start a web server
     status = analysis()
     while True:
-        client, addr = connection.accept()
-        print('client connected from', addr)
-        request = client.recv(1024)
-        print("request:")
-        request = str(request)
-        print("Trying to perform webpage")
-        html = webpage(status)
-        client.send(html)
-        client.close()
-        print("Serve done")
-
+        try:
+            client, addr = s.accept()
+            print('client connected from', addr)
+            request = client.recv(1024)
+            print("request:")
+            request = str(request)
+            print("Trying to perform webpage")
+            html = webpage(status)
+            client.send(html)
+            client.close()
+            print("Serve done")
+        except OSError as e:
+            client.close()
+            print('connection closed')
 
 def webpage(status):
     # Template HTML
@@ -162,26 +162,11 @@ def analysis():
 
 
 # WLAN-Verbindung herstellen
-led_onboard.off()
-time.sleep(2)
-wlan_connect()
-time.sleep(2)
-led_onboard.off()
-
 try:
     ip = wlan_connect()
-    connection = open_socket(ip)
-    serve(connection)
+    open_socket(ip)
     print("Data loaded to something")
 except KeyboardInterrupt:
     machine.reset()
 
-while True:
-    # Doing the analysis
-
-    counter_function()
-    print(count)
-    time.sleep(10)
-    #machine.lightsleep(50)
-    #machine.lightsleep(50)
 
