@@ -75,4 +75,4 @@ elif another_statement is True:  # else if
 else:
     # do another thing
     pass
-ende=input("Bitte Taste drücken...")
+end = input("Bitte Taste drücken...")
